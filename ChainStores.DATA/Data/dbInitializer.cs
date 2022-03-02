@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 
 namespace ChainStores.DATA
 {
@@ -56,11 +55,7 @@ namespace ChainStores.DATA
                 context.Suppliers.AddRange(GetSuppliers());
                 context.SaveChanges();
             }   
-           //if (!context.Deliveries.Any())
-           //{
-           //    context.Deliveries.AddRange(GetDeliveries(context));
-           //    context.SaveChanges();
-           //}
+
         }
        
         private List<Position> GetPositions()
@@ -68,52 +63,61 @@ namespace ChainStores.DATA
             var positions = new List<Position> {
                 new Position
                 {
+                    CodePosition = "000001",
                     Title = "Manager",
                     Salary = 2600
                 },
                 new Position
                 {
+                    CodePosition = "000002",
                     Title = "Accountant",
                     Salary = 3800
                 },
                 new Position
                 {
-                    Title = "Seller-cashier"
-                    ,
+                    CodePosition = "000003",
+                    Title = "Seller-cashier",
                     Salary = 2200
                 },
                 new Position
                 {
+                    CodePosition = "000004",
                     Title = "Merchandiser",
                     Salary = 1800
                 },
                 new Position
                 {
+                    CodePosition = "000005",
                     Title = "Storekeeper",
                     Salary = 1700
                 },
                 new Position
                 {
+                    CodePosition = "000006",
                     Title = "HR Manager",
                     Salary = 2300
                 },
                 new Position
                 {
+                    CodePosition = "000007",
                     Title = "Store director",
                     Salary = 4500
                 },
                 new Position
                 {
+                    CodePosition = "000008",
                     Title = "Economist",
                     Salary = 2600
                 },
                 new Position
                 {
+                    CodePosition = "000009",
                     Title = "Middle manager",
                     Salary = 3000
                 },
                 new Position
                 {
+                    CodePosition = "000010",
                     Title = "Chief accountant",
                     Salary = 4000
                 },
@@ -128,70 +132,70 @@ namespace ChainStores.DATA
                 {
                     Title = "The Home Depot",
                     Adress = "60 Orange St, Bloomfield, NJ 07003, US",
-                    PhoneNumber = "+19736808700",
+                    PhoneNumber = "+375 29 443-22-01",
                     RetailSpace = 155
                 },
                 new Shop
                 {
                     Title = "Rug Depot",
                     Adress = "199 Franklin Ave, Nutley, NJ 07110, US",
-                    PhoneNumber = "+19732350444",
+                    PhoneNumber = "+375 29 466-11-01",
                     RetailSpace = 355
                 },
                 new Shop
                 {
                     Title = "Stop & Shop",
                     Adress = "8 Franklin St, Bloomfield, NJ 07003, US",
-                    PhoneNumber = "+19737436413",
+                    PhoneNumber = "+375 29 883-24-09",
                     RetailSpace = 289
                 },
                 new Shop
                 {
                     Title = "Walmart Supercenter",
                     Adress = "150 Harrison Ave, Kearny, NJ 07032, US",
-                    PhoneNumber = "+12019550280",
+                    PhoneNumber = "+375 29 122-33-54",
                     RetailSpace = 55
                 },
                 new Shop
                 {
                     Title = "Macy’s",
                     Adress = "20 Mall Dr E, Jersey City, NJ 07310,  US",
-                    PhoneNumber = "+12012555200",
+                    PhoneNumber = "+375 29 877-33-02",
                     RetailSpace = 100
                 },
                 new Shop
                 {
                     Title = "H Mart Ridgefield",
                     Adress = "321 Broad Ave, Ridgefield, NJ 07657, US",
-                    PhoneNumber = "+12019439600",
+                    PhoneNumber = "+375 29 122-33-55",
                     RetailSpace = 355
                 },
                 new Shop
                 {
                     Title = "Westfield Garden State Plaza",
                     Adress = "One Garden State Plaza, Paramus, NJ 07652, US",
-                    PhoneNumber = "+12018432121",
+                    PhoneNumber = "+375 29 555-44-22",
                     RetailSpace = 500
                 },
                 new Shop
                 {
                     Title = "ShopRite of New Milford",
                     Adress = "250 River Rd, New Milford, NJ 07646, US",
-                    PhoneNumber = "+12012628834",
+                    PhoneNumber = "+375 29 578-23-45",
                     RetailSpace = 322
                 },
                 new Shop
                 {
                     Title = "ACME Markets",
                     Adress = "136 Lake Ave, Midland Park, NJ 07432, US",
-                    PhoneNumber = "+12014937050",
+                    PhoneNumber = "+375 29 589-33-12",
                     RetailSpace = 677
                 },
                 new Shop
                 {
                     Title = "Woo-Ri Mart",
                     Adress = "206 Pegasus Ave, Northvale, NJ 07647, US",
-                    PhoneNumber = "+12017501203",
+                    PhoneNumber = "+375 29 554-22-33",
                     RetailSpace = 144
                 },
             };
@@ -202,6 +206,7 @@ namespace ChainStores.DATA
             var productManufacturers = new List<ProductManufacturer> {
                 new ProductManufacturer
                 {
+                    
                     Title = "Levi's",
                     Address = "750 Baychester Ave, Bronx",
                     Country = "US"
@@ -337,7 +342,7 @@ namespace ChainStores.DATA
                     Title = "Patel Brothers",
                     Adress = "1681 Oak Tree Rd, Edison, NJ 08820",
                     Info = "",
-                    PhoneNumber = "+17325159574",
+                    PhoneNumber = "+375 29 390-12-12",
                     Email ="PatelBrothers@gmail.com",
                     Category = "Broker",
                     Country = "US",
@@ -349,7 +354,7 @@ namespace ChainStores.DATA
                     Title = "Rite of Ernston Road",
                     Adress = "2909 Washington Rd, Parlin, NJ 08859",
                     Info = "",
-                    PhoneNumber = "+17325258282",
+                    PhoneNumber = "+375 29 770-12-44",
                     Email ="ErnstonRoad@gmail.com",
                     Category = "Broker",
                     Country = "US",
@@ -361,7 +366,7 @@ namespace ChainStores.DATA
                     Title = "Aiello",
                     Adress = "603 Washington Rd, South Amboy, NJ 08879",
                     Info = "",
-                    PhoneNumber = "+17325252201",
+                    PhoneNumber = "+375 29 876-12-00",
                     Email ="Aiello@gmail.com",
                     Category = "Broker",
                     Country = "US",
@@ -373,7 +378,7 @@ namespace ChainStores.DATA
                     Title = "Trader Joe's",
                     Adress = "1022 Broad St, Shrewsbury, NJ 07702",
                     Info = "",
-                    PhoneNumber = "+17323392511",
+                    PhoneNumber = "+375 29 987-00-12",
                     Email ="Trader@gmail.com",
                     Category = "Broker",
                     Country = "US",
@@ -385,7 +390,7 @@ namespace ChainStores.DATA
                     Title = "Technic",
                     Adress = "1031 Broad St, Shrewsbury, NJ 07702",
                     Info = "",
-                    PhoneNumber = "+17323892535",
+                    PhoneNumber = "+375 29 000-32-11",
                     Email ="Technic@gmail.com",
                     Category = "Broker",
                     Country = "US",
@@ -397,7 +402,7 @@ namespace ChainStores.DATA
                     Title = "Exito Fresh",
                     Adress = "176 Broadway, Long Branch, NJ 07740",
                     Info = "",
-                    PhoneNumber = "+17322224891",
+                    PhoneNumber = "+375 29 099-43-11",
                     Email ="ExitoFresh@gmail.com",
                     Category = "Broker",
                     Country = "US",
@@ -409,7 +414,7 @@ namespace ChainStores.DATA
                     Title = "International Mexican Grocery & Deli",
                     Adress = "2112 NJ Rt 35 South, Oakhurst",
                     Info = "",
-                    PhoneNumber = "+17326869042",
+                    PhoneNumber = "+375 29 999-34-11",
                     Email ="InternationalMexicanGrocery@gmail.com",
                     Category = "Broker",
                     Country = "US",
@@ -421,7 +426,7 @@ namespace ChainStores.DATA
                     Title = "Inspired",
                     Adress = "1800 Bloomsbury Ave, Ocean Township, NJ 07712",
                     Info = "",
-                    PhoneNumber = "+17326956150",
+                    PhoneNumber = "+375 29 099-56-23",
                     Email ="Inspired@gmail.com",
                     Category = "Broker",
                     Country = "US",
@@ -433,7 +438,7 @@ namespace ChainStores.DATA
                     Title = "Jersey Shore Premium Outlets",
                     Adress = "1 Premium Outlet Blvd, Tinton Falls, NJ 07753",
                     Info = "",
-                    PhoneNumber = "+17329181700",
+                    PhoneNumber = "+375 29 985-23-11",
                     Email ="JerseyShorePremiumOutlets@gmail.com",
                     Category = "Broker",
                     Country = "US",
@@ -445,7 +450,7 @@ namespace ChainStores.DATA
                     Title = "ShopRite of Wall Township",
                     Adress = "2433 NJ-34, Manasquan, NJ 08736",
                     Info = "",
-                    PhoneNumber = "+17322929780",
+                    PhoneNumber = "+375 29 009-42-00",
                     Email ="ShopRiteWallTownship@gmail.com",
                     Category = "Broker",
                     Country = "US",
@@ -460,113 +465,113 @@ namespace ChainStores.DATA
             var employees = new List<Employee> {
                 new Employee
                 {
-                    InsurancePolicy = "123123624523",
+                    InsurancePolicy = "333-22-1233",
                     LastName ="Humphrey",
                     FirstName = "Bogart",
                     Age = 25,
                     ShopId = context.Shops.First(f => f.Title == "The Home Depot").Id,
                     Info = "",
                     PositionId = context.Positions.First(f => f.Title == "Manager").Id,
-                    PhoneNumber = "+17325159215"
+                    PhoneNumber = "+375 29 775-34-11"
                 },
                 new Employee
                 {
-                    InsurancePolicy = "123123524523",
+                    InsurancePolicy = "442-00-1231",
                     LastName ="Katharine",
                     FirstName = "Hepburn",
                     Age = 49,
                     ShopId = context.Shops.First(f => f.Title == "The Home Depot").Id,
                     Info = "",
                     PositionId = context.Positions.First(f => f.Title == "Manager").Id,
-                    PhoneNumber = "+17325159564"
+                    PhoneNumber = "+375 29 553-21-09"
                 },
                 new Employee
                 {
-                    InsurancePolicy = "144123624523",
+                    InsurancePolicy = "886-33-1215",
                     LastName ="Cary",
                     FirstName = "Grant",
                     Age = 21,
                     ShopId = context.Shops.First(f => f.Title == "Woo-Ri Mart").Id,
                     Info = "",
                     PositionId = context.Positions.First(f => f.Title == "Store director").Id,
-                    PhoneNumber = "+17325159111"
+                    PhoneNumber = "+375 29 865-33-12"
                 },
                 new Employee
                 {
-                    InsurancePolicy = "123123625555",
+                    InsurancePolicy = "099-45-1235",
                     LastName ="Bette",
                     FirstName = "Davis",
                     Age = 38,
                     ShopId = context.Shops.First(f => f.Title == "ACME Markets").Id,
                     Info = "",
                     PositionId = context.Positions.First(f => f.Title == "Seller-cashier").Id,
-                    PhoneNumber = "+17325159664"
+                    PhoneNumber = "+375 29 098-44-22"
                 },
                 new Employee
                 {
-                   InsurancePolicy = "123887754523",
+                   InsurancePolicy = "953-32-0997",
                    LastName ="Bette",
                    FirstName = "Garbo",
                    Age = 33,
                    ShopId = context.Shops.First(f => f.Title == "ShopRite of New Milford").Id,
                    Info = "",
                    PositionId = context.Positions.First(f => f.Title == "Economist").Id,
-                   PhoneNumber = "+17325159731"         
+                   PhoneNumber = "+375 29 885-44-33"
                 },
                 new Employee
                 {
-                    InsurancePolicy = "000123624523",
+                    InsurancePolicy = "122-66-4443",
                     LastName ="James",
                     FirstName = "Stewart",
                     Age = 29,
                     ShopId = context.Shops.First(f => f.Title == "H Mart Ridgefield").Id,
                     Info = "",
                     PositionId = context.Positions.First(f => f.Title == "Storekeeper").Id,
-                    PhoneNumber = "+17325159005"
+                    PhoneNumber = "+375 29 976-33-33"
                 },
                 new Employee
                 {
-                    InsurancePolicy = "777723624523",
+                    InsurancePolicy = "333-88-5543",
                     LastName ="Audrey",
                     FirstName = "Hepburn",
                     Age = 21,
                     ShopId = context.Shops.First(f => f.Title == "Rug Depot").Id,
                     Info = "",
                     PositionId = context.Positions.First(f => f.Title == "HR Manager").Id,
-                    PhoneNumber = "+17325159124"
+                    PhoneNumber = "+375 29 099-44-11"
                 },
                  new Employee
                  {
-                     InsurancePolicy = "123123998555",
+                     InsurancePolicy = "009-43-2311",
                      LastName ="James",
                      FirstName = "Bergman",
                      Age = 25,
                      ShopId = context.Shops.First(f => f.Title == "Rug Depot").Id,
                      Info = "",
                      PositionId = context.Positions.First(f => f.Title == "Chief accountant").Id,
-                     PhoneNumber = "+17325159010"
+                     PhoneNumber = "+375 29 097-28-23"
                  },
                  new Employee
                  {
-                     InsurancePolicy = "177443624523",
+                     InsurancePolicy = "333-23-1123",
                      LastName ="James",
                      FirstName = "Foundation",
                      Age = 40,
                      ShopId = context.Shops.First(f => f.Title == "Rug Depot").Id,
                      Info = "",
                      PositionId = context.Positions.First(f => f.Title == "Accountant").Id,
-                     PhoneNumber = "+17325159997"
+                     PhoneNumber = "+375 29 864-23-23"
                  },
                  new Employee
                  {
-                     InsurancePolicy = "123121122523",
+                     InsurancePolicy = "421-43-1235",
                      LastName ="Judy",
                      FirstName = "Garland",
                      Age = 28,
                      ShopId = context.Shops.First(f => f.Title == "Woo-Ri Mart").Id,
                      Info = "",
                      PositionId = context.Positions.First(f => f.Title == "Accountant").Id,
-                     PhoneNumber = "+17325159321"
+                     PhoneNumber = "+375 29 875-22-12"
                  }
             };
             return employees;
@@ -717,122 +722,7 @@ namespace ChainStores.DATA
             };
             return productes;
         }
-        private List<Supply> GetDeliveries(dbContext context)
-        {
-              var supplies = new List<Supply> {
-                   new Supply
-                   {
-                      EmployeeId = context.Employees.First(f => f.LastName + " " + f.FirstName == "Humphrey Bogart").Id,
-                      ProductId = context.Products.First(f => f.Title == "TV Blaupunkt 32WB965T").Id,
-                      ShopId = context.Shops.First(f => f.Title == "The Home Depot").Id,
-                      SupplierId = context.Suppliers.First(f => f.Title == "Patel Brothers").Id,
-                      Quantity = 15,
-                      TotalPrice = 15 * (double)context.Products.First(f => f.Title == "TV Blaupunkt 32WB965T").UnitPrice,
-                      DateReceipt = DateTime.Now.AddDays(15),
-                      ActualDateReceipt = DateTime.Now.AddDays(15),
-                   },
-                   new Supply
-                   {
-                      EmployeeId = context.Employees.First(f => f.LastName + " " + f.FirstName == "Humphrey Bogart").Id,
-                      ProductId = context.Products.First(f => f.Title == "Smoked sausage from poultry").Id,
-                      ShopId = context.Shops.First(f => f.Title == "The Home Depot").Id,
-                      SupplierId = context.Suppliers.First(f => f.Title == "ShopRite of Wall Township").Id,
-                      Quantity = 10,
-                      TotalPrice = 10 * (double)context.Products.First(f => f.Title == "TV Blaupunkt 32WB965T").UnitPrice,
-                      DateReceipt = DateTime.Now.AddDays(12),
-                      ActualDateReceipt = DateTime.Now.AddDays(15),
-                   },
-                   new Supply
-                   {
-                      EmployeeId = context.Employees.First(f => f.LastName + " " + f.FirstName == "Judy Garland").Id,
-                      ProductId = context.Products.First(f => f.Title == "Acrylic bathtub VagnerPlast Cavallo").Id,
-                      ShopId = context.Shops.First(f => f.Title == "Woo-Ri Mart").Id,
-                      SupplierId = context.Suppliers.First(f => f.Title == "Patel Brothers").Id,
-                      Quantity = 55,
-                      TotalPrice = 55 *  (double)context.Products.First(f => f.Title == "TV Blaupunkt 32WB965T").UnitPrice,
-                      DateReceipt = DateTime.Now.AddDays(7),
-                      ActualDateReceipt = DateTime.Now.AddDays(11),
-                   },
-                   new Supply
-                   {
-                      EmployeeId = context.Employees.First(f => f.LastName + " " + f.FirstName == "Judy Garland").Id,
-                      ProductId = context.Products.First(f => f.Title == "Acrylic bathtub VagnerPlast Cavallo").Id,
-                      ShopId = context.Shops.First(f => f.Title == "Woo-Ri Mart").Id,
-                      SupplierId = context.Suppliers.First(f => f.Title == "Inspired").Id,
-                      Quantity = 5,
-                      TotalPrice = 5 *  (double)context.Products.First(f => f.Title == "TV Blaupunkt 32WB965T").UnitPrice,
-                      DateReceipt = DateTime.Now.AddDays(22),
-                      ActualDateReceipt = DateTime.Now.AddDays(26),
-                   },
-                   new Supply
-                   {
-                      EmployeeId = context.Employees.First(f => f.LastName + " " + f.FirstName == "James Stewart").Id,
-                      ProductId = context.Products.First(f => f.Title == "Winter men's jacket with sintepon").Id,
-                      ShopId = context.Shops.First(f => f.Title == "H Mart Ridgefield").Id,
-                      SupplierId = context.Suppliers.First(f => f.Title == "Exito Fresh").Id,
-                      Quantity = 15,
-                      TotalPrice = 15 *  (double)context.Products.First(f => f.Title == "TV Blaupunkt 32WB965T").UnitPrice,
-                      DateReceipt = DateTime.Now.AddDays(6),
-                      ActualDateReceipt = DateTime.Now.AddDays(10),
-                   },
-                   new Supply
-                   {
-                      EmployeeId = context.Employees.First(f => f.LastName + " " + f.FirstName == "Katharine Hepburn").Id,
-                      ProductId = context.Products.First(f => f.Title == "Winter men's jacket with sintepon").Id,
-                      ShopId = context.Shops.First(f => f.Title == "The Home Depot").Id,
-                      SupplierId = context.Suppliers.First(f => f.Title == "Exito Fresh").Id,
-                      Quantity = 17,
-                      TotalPrice = 17 *  (double)context.Products.First(f => f.Title == "TV Blaupunkt 32WB965T").UnitPrice,
-                      DateReceipt = DateTime.Now.AddDays(3),
-                      ActualDateReceipt = DateTime.Now.AddDays(3),
-                   },
-                   new Supply
-                   {
-                      EmployeeId = context.Employees.First(f => f.LastName + " " + f.FirstName == "James Foundation").Id,
-                      ProductId = context.Products.First(f => f.Title == "Our Toy X005-A Game complex").Id,
-                      ShopId = context.Shops.First(f => f.Title == "Rug Depot").Id,
-                      SupplierId = context.Suppliers.First(f => f.Title == "International Mexican Grocery & Deli").Id,
-                      Quantity = 25,
-                      TotalPrice = 25 *  (double)context.Products.First(f => f.Title == "TV Blaupunkt 32WB965T").UnitPrice,
-                      DateReceipt = DateTime.Now.AddDays(5),
-                      ActualDateReceipt = DateTime.Now.AddDays(5),
-                   },
-                   new Supply
-                   {
-                      EmployeeId = context.Employees.First(f => f.LastName + " " + f.FirstName == "James Foundation").Id,
-                      ProductId = context.Products.First(f => f.Title == "Midori Sushi Rice").Id,
-                      ShopId = context.Shops.First(f => f.Title == "Rug Depot").Id,
-                      SupplierId = context.Suppliers.First(f => f.Title == "International Mexican Grocery & Deli").Id,
-                      Quantity = 300,
-                      TotalPrice = 300 *  (double)context.Products.First(f => f.Title == "TV Blaupunkt 32WB965T").UnitPrice,
-                      DateReceipt = DateTime.Now.AddDays(15),
-                      ActualDateReceipt = DateTime.Now.AddDays(15),
-                   },
-                   new Supply
-                   {
-                      EmployeeId = context.Employees.First(f => f.LastName + " " + f.FirstName == "Bette Garbo").Id,
-                      ProductId = context.Products.First(f => f.Title == "Midori Sushi Rice").Id,
-                      ShopId = context.Shops.First(f => f.Title == "ShopRite of New Milford").Id,
-                      SupplierId = context.Suppliers.First(f => f.Title == "Rite of Ernston Road").Id,
-                      Quantity = 250,
-                      TotalPrice = 250 *  (double)context.Products.First(f => f.Title == "TV Blaupunkt 32WB965T").UnitPrice,
-                      DateReceipt = DateTime.Now.AddDays(8),
-                      ActualDateReceipt = DateTime.Now.AddDays(8),
-                   },
-                   new Supply
-                   {
-                      EmployeeId = context.Employees.First(f => f.LastName + " " + f.FirstName == "Bette Garbo").Id,
-                      ProductId = context.Products.First(f => f.Title == "Versace Versense eau de toilette").Id,
-                      ShopId = context.Shops.First(f => f.Title == "ShopRite of New Milford").Id,
-                      SupplierId = context.Suppliers.First(f => f.Title == "Rite of Ernston Road").Id,
-                      Quantity = 23,
-                      TotalPrice = 23 * (double)context.Products.First(f => f.Title == "TV Blaupunkt 32WB965T").UnitPrice,        
-                      DateReceipt = DateTime.Now.AddDays(15),
-                      ActualDateReceipt = DateTime.Now.AddDays(15),
-                   },
-              };
-            return supplies;
-        }
+        
         private List<CommoаdityUnit> GetCommoаdityUnits()
         {
             var commoаdityUnits = new List<CommoаdityUnit> {

@@ -1,6 +1,7 @@
 ﻿using ChainStores.DATA;
 using ChainStores.DATA.Logic;
 using ChainStores.DATA.Models;
+using ChaintStores.API.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ using System.Web.Http.Cors;
 
 namespace ChaintStores.API.Controllers
 {
-    [EnableCors(origins: "https://localhost:44346", headers: "*", methods: "*")]
+    [MyCorsPolicy]
     public class CommoаdityUnitController : ApiController
     {
         private dbContext _db;

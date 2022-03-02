@@ -1,6 +1,7 @@
 ﻿using ChainStores.DATA;
 using ChainStores.DATA.Logic;
 using ChainStores.DATA.Models;
+using ChaintStores.API.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ using System.Web.Http.Cors;
 
 namespace ChaintStores.API.Controllers
 {
-    [EnableCors(origins: "https://localhost:44346", headers: "*", methods: "*")]
+    [MyCorsPolicy]
     public class ProductController : ApiController
     {
         private dbContext _db;
@@ -45,8 +46,7 @@ namespace ChaintStores.API.Controllers
             , string commoаdityUnit, string description, string dateManufacture, string expirationDate,
             string article, string certificate, string productComposition)
         {
-            if (!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(unitPrice))
-            {
+ 
                 var categoryId = _db.ProductCategories.First(c => c.Title == productCategory).Id;
                 var manufacturerId = _db.ProductManufacturers.First(c => c.Title == productManufacturer).Id;
                 var commoаdityUnitId = _db.CommoаdityUnits.First(c => c.Title == commoаdityUnit).Id;
@@ -65,8 +65,8 @@ namespace ChaintStores.API.Controllers
                     Сertificate = certificate,
                     ProductComposition = productComposition,
                 };
-                _productRepository.AddAsync(product);
-            }
+                _productRepository.Add(product);
+           
         }
 
         [HttpGet, Route("UpdateProduct"), ActionName("UpdateProduct")]
@@ -91,11 +91,11 @@ namespace ChaintStores.API.Controllers
                     Сertificate = certificate,
                     ProductComposition = productComposition,
                 };
-                _productRepository.UpdateAsync(product);
+                _productRepository.Update(product);
             }     
         }
 
-        [HttpDelete, Route("DeleteProduct"), ActionName("Delete")]
+        [HttpGet, Route("DeleteProduct"), ActionName("Delete")]
         public void Delete(Guid id)
         {
             _productRepository.Delete(id);

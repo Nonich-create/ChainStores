@@ -1,9 +1,4 @@
-﻿
-using ChainStores.DATA.Models.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using ChainStores.DATA.Models.Base;
 
 namespace ChainStores.DATA.Models
 {

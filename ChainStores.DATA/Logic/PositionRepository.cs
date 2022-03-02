@@ -1,9 +1,7 @@
-﻿using ChainStores.DATA;
-using ChainStores.DATA.Models;
+﻿using ChainStores.DATA.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace ChainStores.DATA.Logic
 {
@@ -34,7 +32,8 @@ namespace ChainStores.DATA.Logic
             else
             {
                 query = _db.Positions.Where(p => p.Title.Contains(stringSearch) 
-                || p.JobDescriptions.Contains(stringSearch))
+                || p.JobDescriptions.Contains(stringSearch) ||
+                p.CodePosition.Contains(stringSearch)) 
                     .OrderBy(p => p.Title).ThenBy(p => p.Salary);
                 return query;
             }

@@ -1,6 +1,7 @@
 ﻿using ChainStores.DATA;
 using ChainStores.DATA.Logic;
 using ChainStores.DATA.Models;
+using ChaintStores.API.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ using System.Web.Http.Cors;
 
 namespace ChaintStores.API.Controllers
 {
-    [EnableCors(origins: "https://localhost:44346", headers: "*", methods: "*")]
+    [MyCorsPolicy]
     public class ProductCategoryController : ApiController
     {
         private dbContext _db;  
@@ -48,22 +49,19 @@ namespace ChaintStores.API.Controllers
         }
 
         [HttpGet, Route("AddProductCategory"), ActionName("AddProductCategory")]
-        public async Task AddAsync(string title, string code, string info)
+        public void Add(string title, string code, string info)
         {
-            if (!string.IsNullOrEmpty(code) && !string.IsNullOrEmpty(title))
-            {
                 ProductCategory productCategory = new ProductCategory()
                 {
                     Title = title,
                     Code = code,
                     Info = info,
                 };
-                await _productCategoryRepository.AddAsync(productCategory);
-            }
+                 _productCategoryRepository.Add(productCategory);
         }
 
         [HttpGet, Route("UpdateProductCategory"), ActionName("UpdateProductCategory")]
-        public async Task UpdateAsync(string title, string code, string info, string Id)
+        public void Update(string title, string code, string info, string Id)
         {
             if (!string.IsNullOrEmpty(Id) && !string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(code))
             {
@@ -75,11 +73,11 @@ namespace ChaintStores.API.Controllers
                     Info = info,
                 };
 
-                await _productCategoryRepository.UpdateAsync(productCategory);
+                 _productCategoryRepository.Update(productCategory);
             }
         }
 
-        [HttpDelete, Route("DeleteProductCategory"), ActionName("Delete")]
+        [HttpGet, Route("DeleteProductCategory"), ActionName("Delete")]
         public void Delete(Guid id)
         {
              _productCategoryRepository.Delete(id);

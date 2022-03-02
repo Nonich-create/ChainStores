@@ -5,7 +5,7 @@
         <div>
             <input type="text"   id="textSearch" class="form-control"/>
             <button onclick="FillingTableSearchResult()" style="margin-top:4px" type="button" class="btn btn-primary">Filter</button>
-            <a href="https://localhost:44346/View/ProductManufacturersApi/AddProductManufacturer" style="margin-top: 4px" class="btn btn-primary">Add</a>
+            <a id="OpenAddProductManufacturer" style="margin-top: 4px" class="btn btn-primary">Add</a>
                <table class="table" border="1" style="border-collapse:collapse;">
                    <thead>
                        <tr>
@@ -20,13 +20,17 @@
                   </tbody>
                </table>
             </div>
+        <input hidden="hidden" id="LblWebApi" value="<%=WebApi%>"/>
     </section>
-    <script>
+ 
+ <script>
+     document.getElementById('OpenAddProductManufacturer').href = location.protocol + '//' + location.host + '/View/ProductManufacturersApi/AddProductManufacturer';
+     var webApi = document.getElementById('LblWebApi');
         async function getManufacturers() {
             var array = [];
             await $.ajax({
                 headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-                url: 'https://localhost:44375/GetManufacturerAll',
+                url: webApi.value +'/GetManufacturerAll',
                 type: 'GET',
                 success: function (data) {
                     array = data;
@@ -39,7 +43,7 @@
             var array = [];
             await $.ajax({
                 headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-                url: 'https://localhost:44375/Api/Manufacturer?stringSearch=' + stringSearch,
+                url: webApi.value +'/Api/Manufacturer?stringSearch=' + stringSearch,
                 type: 'GET',
                 success: function (data) {
                     array = data;
@@ -51,8 +55,8 @@
         async function deleteManufacturer(Id) {
             await $.ajax({
                 headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-                url: 'https://localhost:44375/DeleteManufacturer?Id=' + Id,
-                type: 'DELETE',
+                url: webApi.value +'/DeleteManufacturer?Id=' + Id,
+                type: 'GET',
                 success: function (data) {
 
                 }
@@ -93,7 +97,7 @@
                     CreateTd(array[i].Info) +
                     '<td>' + '<span>' +
                     '<button onClick="ClickDeleteManufacturer(this)" value="' + Id + '" type="submit" class="btn btn-primary">Delete</button>' +
-                    ' <a href="https://localhost:44346/View/ProductManufacturersApi/UpdateManufacturer.aspx?Id=' + Id + '" class="btn btn-primary">Update</a>' +
+                ' <a href="' + location.protocol + '//' + location.host +'/View/ProductManufacturersApi/UpdateManufacturer.aspx?Id=' + Id + '" class="btn btn-primary">Update</a>' +
                     '</span>' + '</td>'
                 tbody.appendChild(tr);
             }
@@ -108,5 +112,5 @@
                 return '<td>' + '<span title="' + elem +'">' + elem + '</span>' + '</td>'
             }
         }
-    </script>
+ </script>
 </asp:Content>

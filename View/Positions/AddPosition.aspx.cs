@@ -40,9 +40,11 @@ namespace ChainStores.View.Positions
                      };
                      if (!_db.Positions.Any(a => a.Title == position.Title || a.CodePosition == position.CodePosition))
                      {
+                     
                         _positionRepository.AddAsync(position);
                         Response.Redirect("~/View/Positions/ViewPositions");
-                     }
+
+                    }
                  }
              }
              catch
@@ -55,5 +57,7 @@ namespace ChainStores.View.Positions
         {
             Response.Redirect("~/View/Positions/ViewPositions");
         }
+
+ 
     }
 }

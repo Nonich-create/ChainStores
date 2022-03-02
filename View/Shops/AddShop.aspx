@@ -11,10 +11,15 @@
  
 <body>
     <form id="form1" runat="server">
+                     <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference   Path="~/Scripts/ViewScripts/CheckValidation.js" />
+            </Scripts>
+        </asp:ScriptManager>
        <div style="width:300px;margin:0 auto;outline: 2px solid #000;padding: 10px;border-radius: 10px;" runat="server">    
                <h2>Server validation</h2>
-            <div style="margin: auto; color: #FF0000; height: 150px; background:#FFC0CB; outline: 2px solid #000;padding: 10px;border-radius: 10px;">
-                <asp:ValidationSummary EnableClientScript="false" runat="server" CssClass="error"/>
+            <div id="errorSummary" style="margin: auto; color: #FF0000;  background:#FFC0CB; outline: 2px solid #FFC0CB; padding: 10px;border-radius: 10px;">
+                <asp:ValidationSummary  ID="validationSum"  EnableClientScript="true" runat="server" CssClass="error"/>
             </div> 
         <label>Shop name</label> 
         <asp:RequiredFieldValidator ForeColor="#FF0000" EnableClientScript="false" runat="server" ControlToValidate="textTitle"  ErrorMessage="The name must be specified" CssClass="error" Text="*" />
@@ -51,11 +56,14 @@
            <label>Additional information</label> 
         <asp:TextBox ID="TextInfo" runat="server" CssClass="form-control" TextMode="MultiLine" ></asp:TextBox> 
         
-           <asp:Button ID="ButtonAdd" Text="Save" runat="server" CssClass="btn btn-primary" OnClick="ButtonAdd_Click"/>
+           <asp:Button ID="ButtonAdd" OnClientClick="CheckValidation('errorSummary','validationSum')" Text="Save" runat="server" CssClass="btn btn-primary" OnClick="ButtonAdd_Click"/>
         <asp:Button ID="ButtonBack"  CausesValidation="false"  Text="Back" runat="server" CssClass="btn btn-primary" OnClick="ButtonBack_Click"/>
        </div>
     </form>
 </body>
 </html>
+<script>
+    CheckValidation('errorSummary', 'validationSum');
+</script>
  
  

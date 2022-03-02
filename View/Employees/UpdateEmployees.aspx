@@ -11,10 +11,15 @@
 </head>
 <body>
     <form id="form1" runat="server" onload="form1_Load">      
+                   <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference   Path="~/Scripts/ViewScripts/CheckValidation.js" />
+            </Scripts>
+        </asp:ScriptManager>
         <div style="width:300px;margin:0 auto;outline: 2px solid #000;padding: 10px;border-radius: 10px;"> 
                 <h2>Client validation</h2>
-            <div style="margin: auto; color: #FF0000; height: 175px; background:#FFC0CB; outline: 2px solid #000;padding: 10px;border-radius: 10px;">
-                <asp:ValidationSummary runat="server" CssClass="error"/>
+            <div id="errorSummary" style="margin: auto; color: #FF0000; background:#FFC0CB; outline: 2px solid #FFC0CB; padding: 10px;border-radius: 10px;">
+                <asp:ValidationSummary ID="validationSum" runat="server" CssClass="error"/>
             </div>
         <label>Last name</label> 
         <asp:RequiredFieldValidator ForeColor="Red" runat="server" ControlToValidate="textLastName"  ErrorMessage="The last name must be specified" CssClass="error" Text="*" />
@@ -60,7 +65,7 @@
             <asp:RequiredFieldValidator ForeColor="Red" runat="server" ControlToValidate="dropDownShop"  ErrorMessage="The shop must be specified" CssClass="error" Text="*" />
         <asp:DropDownList ID="dropDownShop" runat="server" ItemType="System.String" SelectMethod="GetShops" CssClass="btn btn-secondary dropdown-toggle"/> 
 
-            <asp:Button ID="ButtonSave" Text="Save" runat="server" OnClick="ButtonSave_Click" CssClass="btn btn-primary"/>
+            <asp:Button ID="ButtonSave" OnClientClick="CheckValidation('errorSummary','validationSum')" Text="Save" runat="server" OnClick="ButtonSave_Click" CssClass="btn btn-primary"/>
             <asp:Button ID="ButtonBack" CausesValidation="false" Text="Back" runat="server" OnClick="ButtonBack_Click" CssClass="btn btn-primary"/>
         </div>
     </form>
@@ -68,6 +73,12 @@
 </html>
 
 <script>
+
+    CheckValidation('errorSummary', 'validationSum');
+
+ 
+  
+
     document.getElementById('textInsurancePolicy').placeholder = '123-45-6789';
     document.getElementById('textPhoneNumber').placeholder = '+375 12 345-67-89';
     calendar.value = document.getElementById('textAppointment').value;
@@ -75,4 +86,5 @@
         var text = document.getElementById(docId);
         text.value = date.value;
     }
+ 
 </script>

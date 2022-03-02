@@ -1,6 +1,7 @@
 ﻿using ChainStores.DATA;
 using ChainStores.DATA.Logic;
 using ChainStores.DATA.Models;
+using ChaintStores.API.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ using System.Web.Http.Cors;
 
 namespace ChaintStores.API.Controllers
 {
-    [EnableCors(origins: "https://localhost:44346", headers: "*", methods: "*")]
+    [MyCorsPolicy]
     public class SupplierController : ApiController
     {
         private dbContext _db;
@@ -38,8 +39,6 @@ namespace ChaintStores.API.Controllers
         public void Add(string title, string adress, string category, string country, string email,
             string phoneNumber, string info, string paymentAccount, string contactPerson)
         {
-            if (!string.IsNullOrEmpty(title))
-            {
                 Supplier supplier = new Supplier()
                 {
                     Title = title,
@@ -47,14 +46,14 @@ namespace ChaintStores.API.Controllers
                     Category = category,
                     Country = country,
                     Email = email,
-                    PhoneNumber = phoneNumber,
+                    PhoneNumber = '+' + phoneNumber.Remove(0, 1),
                     Info = info,
                     PaymentAccount = paymentAccount,
                     ContactPerson = contactPerson
                 };
-                _supplierRepository.AddAsync(supplier);
-            }
+                _supplierRepository.Add(supplier);
         }
+
         [HttpGet, ActionName("SearchSupplier")]
         public IQueryable<Supplier> SearchPositions(string stringSearch)
         {
@@ -75,16 +74,16 @@ namespace ChaintStores.API.Controllers
                     Category = category,
                     Country = country,
                     Email = email,
-                    PhoneNumber = phoneNumber,
+                    PhoneNumber = '+' + phoneNumber.Remove(0, 1),
                     Info = info,
                     PaymentAccount = paymentAccount,
                     ContactPerson = contactPerson
                 };
-                _supplierRepository.UpdateAsync(supplier);
+                _supplierRepository.Update(supplier);
             }
         }
         
-        [HttpDelete, Route("DeleteSupplier"), ActionName("Delete")]
+        [HttpGet, Route("DeleteSupplier"), ActionName("Delete")]
         public void Delete(Guid id)
         {
             _supplierRepository.Delete(id);

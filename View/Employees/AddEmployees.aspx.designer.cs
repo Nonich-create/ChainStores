@@ -33,15 +33,6 @@ namespace ChainStores.View.Employees
         protected global::System.Web.UI.WebControls.TextBox textLastName;
 
         /// <summary>
-        /// dynamicValidator1 элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.DynamicData.DynamicValidator dynamicValidator1;
-
-        /// <summary>
         /// textFirstName элемент управления.
         /// </summary>
         /// <remarks>
@@ -78,15 +69,6 @@ namespace ChainStores.View.Employees
         protected global::System.Web.UI.WebControls.TextBox textAppointment;
 
         /// <summary>
-        /// regulSSN элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator regulSSN;
-
-        /// <summary>
         /// textInsurancePolicy элемент управления.
         /// </summary>
         /// <remarks>
@@ -94,15 +76,6 @@ namespace ChainStores.View.Employees
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox textInsurancePolicy;
-
-        /// <summary>
-        /// dynamicValidator элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.DynamicData.DynamicValidator dynamicValidator;
 
         /// <summary>
         /// textPhoneNumber элемент управления.

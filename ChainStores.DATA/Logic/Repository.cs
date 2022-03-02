@@ -11,6 +11,7 @@ namespace ChainStores.DATA.Logic
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly dbContext _db;
+        private bool disposed = false;
 
         public Repository(dbContext db)
         {
@@ -73,6 +74,26 @@ namespace ChainStores.DATA.Logic
             IQueryable<T> query = _db.Set<T>();
             return query;
         }
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    _db.Dispose();
+                }
+                this.disposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+
     }
 }
  

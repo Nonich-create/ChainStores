@@ -10,10 +10,15 @@
 </head>
 <body>
     <form id="form1" onload="form1_Load" runat="server">
+             <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference   Path="~/Scripts/ViewScripts/CheckValidation.js" />
+            </Scripts>
+        </asp:ScriptManager>
         <div>
              <div style="width:300px;margin:0 auto;outline: 2px solid #000;padding: 10px;border-radius: 10px;">    
-             <div style="margin: auto; color: #FF0000; height: 125px; background:#FFC0CB; outline: 2px solid #000;padding: 10px;border-radius: 10px;">
-                <asp:ValidationSummary ShowSummary="true" runat="server" CssClass="error"/>
+             <div id="errorSummary"  style="margin: auto; color: #FF0000;   background:#FFC0CB; outline: 2px solid #FFC0CB; padding: 10px;border-radius: 10px;">
+                <asp:ValidationSummary  ID="validationSum"  ShowSummary="true" runat="server" CssClass="error"/>
             </div>
 
         <label>Article</label>
@@ -52,7 +57,7 @@
         <asp:DropDownList ID="dropDownManufacturers" runat="server" ItemType="System.String" SelectMethod="GetManufacturers" CssClass="btn btn-secondary dropdown-toggle"/>
         <label>Select a unit of measurement</label>
         <asp:DropDownList ID="dropDownCommoаdityUnit" runat="server" ItemType="System.String" SelectMethod="GetCommoаdityUnits" CssClass="btn btn-secondary dropdown-toggle"/>
-        <asp:Button ID="ButtonAdd" Text="Save" runat="server" OnClick="ButtonAdd_Click" CssClass="btn btn-primary"/>
+        <asp:Button ID="ButtonAdd" OnClientClick="CheckValidation('errorSummary','validationSum')" Text="Save" runat="server" OnClick="ButtonAdd_Click" CssClass="btn btn-primary"/>
         <asp:Button ID="ButtonBack"  CausesValidation="false"  Text="Back" runat="server" OnClick="ButtonBack_Click" CssClass="btn btn-primary"/>
        </div>
         </div>
@@ -60,6 +65,7 @@
 </body>
 </html>
 <script>
+    CheckValidation('errorSummary', 'validationSum');
     calendarManufacture.value = document.getElementById('textDateManufacture').value;
     calendarExpiration.value = document.getElementById('textExpirationDate').value;
  

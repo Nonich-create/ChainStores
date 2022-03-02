@@ -34,7 +34,9 @@
                 <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
                 <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Path="~/Scripts/ViewScripts/ScriptApiPosition.js"/>
                 <asp:ScriptReference Name="WebFormsBundle" />
+                <asp:ScriptReference Path="~/Scripts/CreateTd.js"/>
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
@@ -53,21 +55,21 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/View/Suppliers/ViewSuppliers">Suppliers</a></li>
-                        <li><a runat="server" href="~/View/Shops/ViewShops">Shops</a></li>
-                        <li><a runat="server" href="~/View/Employees/ViewEmployees">Employees</a></li>
-                        <li><a runat="server" href="~/View/Positions/ViewPositions">Positions</a></li>
-                        <li><a runat="server" href="~/View/Products/ViewProducts">Products</a></li>
-                        <li><a runat="server" href="~/View/ProductCategory/ViewProductCategory">Product categories</a></li>
-                        <li><a runat="server" href="~/View/ProductManufacturers/ViewProductManufacturers">Product Manufacturers</a></li>
-                        <br/> 
-                        <li><a runat="server" href="~/View/SuppliersApi/ViewSuppliers">Suppliers</a></li>
-                        <li><a runat="server" href="~/View/ShopsApi/ViewShops">Shops</a></li>
-                        <li><a runat="server" href="~/View/EmployeesApi/ViewEmployees">Employees</a></li>
-                        <li><a runat="server" href="~/View/PositionsApi/ViewPositions">Positions</a></li>
-                        <li><a runat="server" href="~/View/ProductsApi/ViewProducts">Products</a></li>
-                        <li><a runat="server" href="~/View/ProductCategoryApi/ViewProductCategory">Product categories</a></li>
-                        <li><a runat="server" href="~/View/ProductManufacturersApi/ViewProductManufacturers">Product Manufacturers</a></li>
+                        <li><a id="ViewSuppliers" runat="server" href="~/View/Suppliers/ViewSuppliers">Suppliers</a></li>
+                        <li><a id="ViewShops" runat="server" href="~/View/Shops/ViewShops">Shops</a></li>
+                        <li><a id="ViewEmployees" runat="server" href="~/View/Employees/ViewEmployees">Employees</a></li>
+                        <li><a id="ViewPositions" runat="server" href="~/View/Positions/ViewPositions">Positions</a></li>
+                        <li><a id="ViewProducts" runat="server" href="~/View/Products/ViewProducts">Products</a></li>
+                        <li><a id="ViewProductCategory" runat="server" href="~/View/ProductCategory/ViewProductCategory">Product categories</a></li>
+                        <li><a id="ViewProductManufacturers" runat="server" href="~/View/ProductManufacturers/ViewProductManufacturers">Product Manufacturers</a></li>
+                        <br/>  
+                        <li><a id="ApiViewSuppliers" runat="server" href="~/View/SuppliersApi/ViewSuppliers">Suppliers</a></li>
+                        <li><a id="ApiViewShops" runat="server" href="~/View/ShopsApi/ViewShops">Shops</a></li>
+                        <li><a id="ApiViewEmployees" runat="server" href="~/View/EmployeesApi/ViewEmployees">Employees</a></li>
+                        <li><a id="ApiViewPositions" runat="server" href="~/View/PositionsApi/ViewPositions">Positions</a></li>
+                        <li><a id="ApiViewProducts" runat="server" href="~/View/ProductsApi/ViewProducts">Products</a></li>
+                        <li><a id="ApiViewProductCategory" runat="server" href="~/View/ProductCategoryApi/ViewProductCategory">Product categories</a></li>
+                        <li><a id="ApiViewProductManufacturers" runat="server" href="~/View/ProductManufacturersApi/ViewProductManufacturers">Product Manufacturers</a></li>
                     </ul>
                 </div>
 
@@ -85,3 +87,31 @@
     </form>
 </body>
 </html>
+<script>
+    let links = [
+        { link: document.getElementById('ViewSuppliers') },
+        { link: document.getElementById('ViewShops') },
+        { link: document.getElementById('ViewEmployees') },
+        { link: document.getElementById('ViewPositions') },
+        { link: document.getElementById('ViewProducts') },
+        { link: document.getElementById('ViewProductCategory') },
+        { link: document.getElementById('ViewProductManufacturers') },
+        { link: document.getElementById('ApiViewSuppliers') },
+        { link: document.getElementById('ApiViewShops') },
+        { link: document.getElementById('ApiViewEmployees') },
+        { link: document.getElementById('ApiViewPositions') },
+        { link: document.getElementById('ApiViewProducts') },
+        { link: document.getElementById('ApiViewProductCategory') },
+        { link: document.getElementById('ApiViewProductManufacturers') }];
+  
+    function MenuSelection() {
+        let url = document.URL;
+        for (let i = 0; i < links.length; i++) {
+            links[i].link.style = "";
+            if (links[i].link.href == url) {
+                links[i].link.style = "outline: auto white;";
+            }
+        };
+    };
+    MenuSelection();
+</script>

@@ -5,7 +5,7 @@
        <div>
             <input type="text"   id="textSearch" class="form-control"/>
             <button onclick="FillingTableSearchResult()" style="margin-top:4px" type="button" class="btn btn-primary">Filter</button>
-            <a href="https://localhost:44346/View/ProductCategoryApi/AddProductCategory" style="margin-top: 4px" class="btn btn-primary">Add</a>
+            <a id="OpenAddProductCategory"  style="margin-top: 4px" class="btn btn-primary">Add</a>
                <table class="table" border="1" style="border-collapse:collapse;">
                    <thead>
                        <tr>
@@ -20,12 +20,15 @@
                </table>
             </div>
           </section>
-    <script>
+    <input hidden="hidden" id="LblWebApi" value="<%= WebApi %>"/>
+ <script>
+     document.getElementById('OpenAddProductCategory').href = location.protocol + '//' + location.host + '/View/ProductCategoryApi/AddProductCategory';
+     var webApi = document.getElementById('LblWebApi');
         async function GetProductCategories() {
             var array = [];
             await $.ajax({
                 headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-                url: 'https://localhost:44375/GetProductCategoryAll',
+                url: webApi.value +'/GetProductCategoryAll',
                 type: 'GET',
                 success: function (data) {
                     array = data;
@@ -38,7 +41,7 @@
             var array = [];
             await $.ajax({
                 headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-                url: 'https://localhost:44375/Api/ProductCategory?stringSearch=' + stringSearch,
+                url: webApi.value +'/Api/ProductCategory?stringSearch=' + stringSearch,
                 type: 'GET',
                 success: function (data) {
                     array = data;
@@ -50,8 +53,8 @@
         async function deleteProductCategory(Id) {
             await $.ajax({
                 headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-                url: 'https://localhost:44375/DeleteProductCategory?Id=' + Id,
-                type: 'DELETE',
+                url: webApi.value +'/DeleteProductCategory?Id=' + Id,
+                type: 'GET',
                 success: function (data) {
 
                 }
@@ -91,7 +94,7 @@
                     CreateTd(array[i].Info) +
                     '<td>' + '<span>' +
                     '<button onClick="ClickDeleteProductCategory(this)" value="' + Id + '" type="submit" class="btn btn-primary">Delete</button>' +
-                    ' <a href="https://localhost:44346/View/ProductCategoryApi/UpdateCategory.aspx?Id=' + Id + '" class="btn btn-primary">Update</a>' +
+                ' <a href="' + location.protocol + '//' + location.host +'/View/ProductCategoryApi/UpdateCategory.aspx?Id=' + Id + '" class="btn btn-primary">Update</a>' +
                     '</span>' + '</td>'
                 tbody.appendChild(tr);
             }
@@ -105,6 +108,6 @@
                 return '<td>' + '<span title="' + elem +'">' + elem + '</span>' + '</td>'
             }
         }
-    </script>
+ </script>
 </asp:Content>
  

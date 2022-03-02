@@ -4,7 +4,8 @@
            <br />       <br />
     <input type="text"   id="textSearch" class="form-control"/>
     <button onclick="FillingTableSearchResult()" style="margin-top:4px" type="button" class="btn btn-primary">Filter</button>
-    <a href="https://localhost:44346/View/EmployeesApi/AddEmployees" style="margin-top: 4px" class="btn btn-primary">Add</a>
+    <a id="OpenAddEmployee"  style="margin-top: 4px" class="btn btn-primary">Add</a>
+       
         <div>
                <table class="table" border="1" style="border-collapse:collapse;">
                    <thead>
@@ -21,13 +22,18 @@
                   </tbody>
                </table>
         </div>
+            <input hidden="hidden" id="LblWebApi" value="<%= WebApi %>"/>
     </section>
-    <script>
+ 
+ <script>
+     document.getElementById('OpenAddEmployee').href = location.protocol + '//' + location.host + '/View/EmployeesApi/AddEmployees';
+   
+     var webApi = document.getElementById('LblWebApi');
         async function getEmployees() {
             var array = [];
             await $.ajax({
                 headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-                url: 'https://localhost:44375/GetEmployeeAll',
+                url: webApi.value +'/GetEmployeeAll',
                 type: 'GET',
                 success: function (data) {
                     array = data;
@@ -41,7 +47,7 @@
             var array = [];
             await $.ajax({
                 headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-                url: 'https://localhost:44375/Api/Employee?stringSearch=' + stringSearch,
+                url: webApi.value +'/Api/Employee?stringSearch=' + stringSearch,
                 type: 'GET',
                 success: function (data) {
                     array = data;
@@ -52,11 +58,10 @@
 
         async function deleteEmployee(Id) {
             await $.ajax({
-                headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-                url: 'https://localhost:44375/DeleteEmployee?Id=' + Id,
-                type: 'DELETE',
+                headers: { 'Access-Control-Allow-Origin': 'http://localhost'},
+                url: webApi.value +'/DeleteEmployee?Id=' + Id,
+                type: 'GET',
                 success: function (data) {
-
                 }
             });
         }
@@ -97,8 +102,8 @@
                     CreateTd(array[i].Position.Title) +
                     CreateTd(array[i].Age) +
                     '<td>' + '<span>' +
-                    '<button onClick="ClickDeleteEmployee(this)" value="' + Id + '" type="submit" class="btn btn-primary">Delete</button>' +
-                    ' <a href="https://localhost:44346/View/EmployeesApi/UpdateEmployees.aspx?Id=' + Id + '" class="btn btn-primary">Update</a>' +
+                '<button onClick="ClickDeleteEmployee(this)" value="' + Id + '" type="submit" class="btn btn-primary">Delete</button>' +
+                    ' <a href='+location.protocol+'//'+location.host+'/View/EmployeesApi/UpdateEmployees.aspx?Id=' + Id + '" class="btn btn-primary">Update</a>' +
                     '</span>' + '</td>'
                 tbody.appendChild(tr);
             }
@@ -124,5 +129,6 @@
                 return elem
             }
         };
-    </script>
+ </script>
 </asp:Content>
+ 

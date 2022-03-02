@@ -10,11 +10,16 @@
 </head>
 <body>
     <form id="form1" onload="form1_Load" runat="server">
+                  <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference   Path="~/Scripts/ViewScripts/CheckValidation.js" />
+            </Scripts>
+        </asp:ScriptManager>
+
         <div style="width:300px;margin:0 auto;outline: 2px solid #000;padding: 10px;border-radius: 10px;">
-                <div style="margin: auto; color: #FF0000; height: 75px; background:#FFC0CB; outline: 2px solid #000;padding: 10px;border-radius: 10px;">
-                <asp:ValidationSummary ShowSummary="true" runat="server" CssClass="error"/>
+                <div id="errorSummary" style="margin:  auto; color: #FF0000;  background:#FFC0CB; outline: 2px solid #FFC0CB; padding: 10px;border-radius: 10px;">
+                <asp:ValidationSummary   ID="validationSum"  ShowSummary="true" runat="server" CssClass="error"/>
             </div>
-        <asp:ValidationSummary runat="server" CssClass="error"/>
         <label>Code</label> 
         <asp:RequiredFieldValidator ForeColor="#FF0000" runat="server" ControlToValidate="textCode"  ErrorMessage="The code must be specified" CssClass="error" Text="*" />
         <asp:TextBox ID="textCode" runat="server" CssClass="form-control"></asp:TextBox> 
@@ -23,9 +28,12 @@
         <asp:TextBox ID="TextTitle" runat="server"  CssClass="form-control"></asp:TextBox> 
         <label>Additional information</label> 
         <asp:TextBox ID="textInfo" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox> 
-        <asp:Button ID="ButtonSave" Text="Save" runat="server" OnClick="ButtonSave_Click" CssClass="btn btn-primary"  />
+        <asp:Button ID="ButtonSave" OnClientClick="CheckValidation('errorSummary','validationSum')" Text="Save" runat="server" OnClick="ButtonSave_Click" CssClass="btn btn-primary"  />
         <asp:Button ID="ButtonBack" Text="Back" CausesValidation="false" runat="server" OnClick="ButtonBack_Click" CssClass="btn btn-primary"/>
       </div>    
     </form>
 </body>
 </html>
+<script>
+    CheckValidation('errorSummary', 'validationSum');
+</script>

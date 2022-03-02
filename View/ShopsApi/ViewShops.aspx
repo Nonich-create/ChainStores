@@ -4,7 +4,7 @@
        <br />       <br />
         <input type="text"   id="textSearch" class="form-control"/>
     <button onclick="FillingTableSearchResult()" style="margin-top:4px" type="button" class="btn btn-primary">Filter</button>
-    <a href="https://localhost:44346/View/ShopsApi/AddShop" style="margin-top: 4px" class="btn btn-primary">Add</a>
+    <a id="OpenAddShop" style="margin-top: 4px" class="btn btn-primary">Add</a>
         <div>
                <table class="table" border="1" style="border-collapse:collapse;">
                    <thead>
@@ -22,13 +22,17 @@
                   </tbody>
                </table>
         </div>
+      <input hidden="hidden" id="LblWebApi" value="<%= WebApi %>"/>
     </section>
-    <script>
+   
+ <script>
+     document.getElementById('OpenAddShop').href = location.protocol + '//' + location.host + '/View/ShopsApi/AddShop';
+     var webApi = document.getElementById('LblWebApi');
         async function getShop() {
             var array = [];
             await $.ajax({
                 headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-                url: 'https://localhost:44375/GetShopAll',
+                url: webApi.value +'/GetShopAll',
                 type: 'GET',
                 success: function (data) {
                     array = data;
@@ -43,7 +47,7 @@
             var array = [];
             await $.ajax({
                 headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-                url: 'https://localhost:44375/Api/Shop?stringSearch=' + stringSearch,
+                url: webApi.value +'/Api/Shop?stringSearch=' + stringSearch,
                 type: 'GET',
                 success: function (data) {
                     array = data;
@@ -55,8 +59,8 @@
         async function deleteShop(Id) {
             await $.ajax({
                 headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-                url: 'https://localhost:44375/DeleteShop?Id=' + Id,
-                type: 'DELETE',
+                url: webApi.value +'/DeleteShop?Id=' + Id,
+                type: 'GET',
                 success: function (data) {
 
                 }
@@ -97,7 +101,7 @@
                     CreateTd(array[i].WebSite) +
                     '<td>' + '<span>' +
                     '<button onClick="ClickDeleteShop(this)" value="' + Id + '" type="submit" class="btn btn-primary">Delete</button>' +
-                    ' <a href="https://localhost:44346/View/ShopsApi/UpdateShop.aspx?Id=' + Id + '" class="btn btn-primary">Update</a>' +
+                    ' <a href="' + location.protocol + '//' + location.host +'/View/ShopsApi/UpdateShop.aspx?Id=' + Id + '" class="btn btn-primary">Update</a>' +
                     '</span>' + '</td>'
                 tbody.appendChild(tr);
             }
@@ -116,7 +120,7 @@
             }
         };
 
-    </script>
+ </script>
 </asp:Content>
 
  

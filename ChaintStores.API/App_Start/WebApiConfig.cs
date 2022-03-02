@@ -1,7 +1,10 @@
-﻿using System;
+﻿using ChaintStores.API.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Configuration;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace ChaintStores.API
 {
@@ -10,10 +13,13 @@ namespace ChaintStores.API
         public static void Register(HttpConfiguration config)
         {
             // Конфигурация и службы веб-API
-            config.EnableCors();
+            //config.SetCorsPolicyProviderFactory(new CorsPolicyFactory());
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
+            
             // Маршруты веб-API
             config.MapHttpAttributeRoutes();
-            
+           
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

@@ -1,6 +1,7 @@
 ﻿using ChainStores.DATA;
 using ChainStores.DATA.Logic;
 using ChainStores.DATA.Models;
+using ChaintStores.API.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,13 @@ using System.Web.Http.Cors;
 
 namespace ChaintStores.API.Controllers
 {
-    [EnableCors(origins: "https://localhost:44346", headers: "*", methods: "*")]
+    [MyCorsPolicy]
     public class ManufacturerController : ApiController
     {
         private dbContext _db;
         private IProductManufacturersRepository _productManufacturersRepository;
-        ManufacturerController()
+
+        public ManufacturerController()
         {
             _db = new dbContext();
             _productManufacturersRepository = new ProductManufacturersRepository(_db);
@@ -47,10 +49,8 @@ namespace ChaintStores.API.Controllers
         }
 
         [HttpGet, Route("AddManufacturer"), ActionName("AddManufacturer")]
-        public async Task AddAsync(string title, string address, string info, string country)
+        public void Add(string title, string address, string info, string country)
         {
-            if (!string.IsNullOrEmpty(title))
-            {
                 ProductManufacturer manufacturer = new ProductManufacturer()
                 {
                     Title = title,
@@ -58,12 +58,11 @@ namespace ChaintStores.API.Controllers
                     Info = info,
                     Country = country
                 };
-                await _productManufacturersRepository.AddAsync(manufacturer);
-            }
+                _productManufacturersRepository.Add(manufacturer);
         }
 
         [HttpGet, Route("UpdateManufacturer"), ActionName("UpdateManufacturer")]
-        public async Task UpdateAsync(string title, string address, string info, string country, string Id)
+        public void Update(string title, string address, string info, string country, string Id)
         {
             if (!string.IsNullOrEmpty(Id) && !string.IsNullOrEmpty(title))
             {
@@ -76,11 +75,11 @@ namespace ChaintStores.API.Controllers
                     Country = country
                 };
 
-                await _productManufacturersRepository.UpdateAsync(manufacturer);
+                  _productManufacturersRepository.Update(manufacturer);
             }
         }
 
-        [HttpDelete, Route("DeleteManufacturer"), ActionName("Delete")]
+        [HttpGet, Route("DeleteManufacturer"), ActionName("Delete")]
         public void Delete(Guid id)
         {
             _productManufacturersRepository.Delete(id);

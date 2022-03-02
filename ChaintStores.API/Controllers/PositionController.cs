@@ -1,6 +1,8 @@
 ﻿using ChainStores.DATA;
 using ChainStores.DATA.Logic;
 using ChainStores.DATA.Models;
+using ChaintStores.API.App_Start;
+using ChaintStores.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,8 @@ using System.Web.Http.Cors;
 
 namespace ChaintStores.API.Controllers
 {
-    [EnableCors(origins: "https://localhost:44346", headers: "*", methods: "*")]
+
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PositionController : ApiController
     {
         private dbContext _db;
@@ -46,45 +49,22 @@ namespace ChaintStores.API.Controllers
             return _positionRepository.SearchPositions(stringSearch);
         }
 
-        [HttpGet, Route("AddPosition"), ActionName("AddPosition")]
-        public void Add(string title, string jobDescriptions, string info, string code, double salary)
+        [HttpPost, Route("AddPosition"), ActionName("AddPosition")]
+        public void Add([FromBody] PositionView value)
         {
-            if (!string.IsNullOrEmpty(title))
-            {
-                Position position = new Position()
-                {
-                    Title = title,
-                    JobDescriptions = jobDescriptions,
-                    Info = info,
-                    CodePosition = code,
-                    Salary = salary
-                };
-                _positionRepository.AddAsync(position);
-            }
+            _positionRepository.Add(value.ToPosition());
         }
 
-        [HttpGet, Route("UpdatePosition"), ActionName("UpdatePosition")]
-        public void Update(string title, string jobDescriptions, string info, string code, double salary,string Id)
+        [HttpPut, Route("UpdatePosition"), ActionName("UpdatePosition")]
+        public void Update([FromBody] PositionView value)
         {
-            if (!string.IsNullOrEmpty(Id) && !string.IsNullOrEmpty(title))
-            {
-                Position position = new Position()
-                {
-                    Id = new Guid(Id),
-                    Title = title,
-                    JobDescriptions = jobDescriptions,
-                    Info = info,
-                    CodePosition = code,
-                    Salary = salary
-                };
-                _positionRepository.UpdateAsync(position);
-            }
-         }
+                _positionRepository.Update(value.ToPosition());
+        }
         
         [HttpDelete, Route("DeletePosition"), ActionName("Delete")]
         public void Delete(Guid id)
-         {
-             _positionRepository.DeleteAsync(id);
-         }
+        {
+            _positionRepository.Delete(id);
+        }
     }
 }   

@@ -1,6 +1,7 @@
 ﻿using ChainStores.DATA;
 using ChainStores.DATA.Logic;
 using ChainStores.DATA.Models;
+using ChaintStores.API.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ using System.Web.Http.Cors;
 
 namespace ChaintStores.API.Controllers
 {
-    [EnableCors(origins: "https://localhost:44346", headers: "*", methods: "*")]
+    [MyCorsPolicy]
     public class EmployeeController : ApiController
     {
         private dbContext _db;
@@ -42,13 +43,13 @@ namespace ChaintStores.API.Controllers
         }
 
         [HttpGet, Route("AddEmployee"), ActionName("AddEmployee")]
-        public async Task AddAsync(string firstName, string lastName, string middleName, int age
+        public  void AddAsync(string firstName, string lastName, string middleName, int age
             ,string info, string appointment, string phoneNumber, string ssn, 
             string position, string shop)
         {
             if (!string.IsNullOrEmpty(lastName) && !string.IsNullOrEmpty(firstName))
             {
-                var positionId = _db.Positions.First(c => c.Title == position).Id;
+                var positionId = _db.Positions.First(c => c.Title == position).Id; // вернуть null first
                 var shopId = _db.Shops.First(c => c.Title == shop).Id;
                 Employee employee = new Employee()
                 {
@@ -63,12 +64,12 @@ namespace ChaintStores.API.Controllers
                     ShopId = shopId,
                     InsurancePolicy = ssn
                 };
-                await _employeeRepository.AddAsync(employee);
+                 _employeeRepository.Add(employee);
             }
         }
 
         [HttpGet, Route("UpdateEmployee"), ActionName("UpdateAEmployee")]
-        public async Task UpdateAsync(string firstName, string lastName, string middleName, int age
+        public  void UpdateAsync(string firstName, string lastName, string middleName, int age
             , string info, string appointment, string phoneNumber, string ssn,
             string position, string shop, string id)
         {
@@ -88,11 +89,11 @@ namespace ChaintStores.API.Controllers
                     ShopId = new Guid(shop),
                     InsurancePolicy = ssn
                 };
-                await _employeeRepository.UpdateAsync(employee);
+                 _employeeRepository.Update(employee);
             }
         }
 
-        [HttpDelete, Route("DeleteEmployee"), ActionName("Delete")]
+        [HttpGet, Route("DeleteEmployee"), ActionName("Delete")]
         public void  Delete(Guid id)
         {
              _employeeRepository.Delete(id);

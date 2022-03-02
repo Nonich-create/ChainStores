@@ -9,9 +9,10 @@ namespace ChainStores.DATA.Models
 {
     public class Shop : EntityTitle
     {
-        [Required, StringLength(1000), Display(Name = "Adress"), DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "The address must be specified"), StringLength(1000), Display(Name = "Address"), DataType(DataType.MultilineText)]
         public string Adress { get; set; }
-        [Required, StringLength(20), Display(Name = "Phone Number")]
+        [Required(ErrorMessage = "The phone number must be specified"), StringLength(20), Display(Name = "Phone Number")]
+        [RegularExpression(@"^(?:\+375)\b.\d{2}\b.\d{3}-.\d{1}-.\d{1}$", ErrorMessage = "Incorrectly entered phone number +375 12 345-67-89")]
         public string PhoneNumber { get; set; }
         [StringLength(1000), Display(Name = "Form of trade service"), DataType(DataType.MultilineText)]
         public string FormTradeService { get; set; }

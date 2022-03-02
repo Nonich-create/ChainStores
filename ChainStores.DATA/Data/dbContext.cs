@@ -18,6 +18,5 @@ namespace ChainStores.DATA
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<Supply> Deliveries { get; set; }
     }
 }

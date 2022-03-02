@@ -7,15 +7,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Add employee</title>
         <webopt:bundlereference runat="server" path="~/Content/css" />
- 
+        <webopt:BundleReference runat="server" Path="~/Content/PreLoader.css"></webopt:BundleReference>
 </head>
 <body>
     <form id="form1" runat="server">
+         <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference   Path="~/Scripts/ViewScripts/Twister.js" />
+            </Scripts>
+        </asp:ScriptManager>
+
+           <fieldset id="controlForms"/>  
         <div style="width:300px;margin:0 auto;outline: 2px solid #000;padding: 10px;border-radius: 10px;"> 
-            <div style="margin: auto; color: #FF0000; height: 175px; background:#FFC0CB; outline: 2px solid #000;padding: 10px;border-radius: 10px;">
-                <asp:ValidationSummary runat="server" CssClass="error"/>
+            <div id="errorSummary" style="margin: auto; color: #FF0000;  background:#FFC0CB; outline: 2px solid #FFC0CB; padding: 10px;border-radius: 10px;">
+                <asp:ValidationSummary ID="validationSum" runat="server" CssClass="error"/>
             </div>
-         
+           <div> 
+                      <h3 id="message"></h3>
+            </div>
         <label>Last name</label> 
         <asp:RequiredFieldValidator runat="server" ControlToValidate="textLastName"  ErrorMessage="The last name must be specified" CssClass="error" Text="*" ForeColor="Red" />
         <asp:TextBox ID="textLastName" runat="server" MaxLength="100" CssClass="form-control" ValidateRequestMode="Enabled"></asp:TextBox> 
@@ -53,18 +62,49 @@
 
         <label>Chose shop</label> 
         <asp:DropDownList ID="dropDownShop" runat="server" ItemType="System." CssClass="btn btn-secondary dropdown-toggle"/> 
-
-        <button onclick="ClickAddEmployee()" style="width:280px" type="submit" class="btn btn-primary">Save</button>
-        <a href="https://localhost:44346/View/EmployeesApi/ViewEmployees" style="margin-top: 4px; width:280px" class="btn btn-primary">Back</a>
+        
+            <div id="Preloader" hidden="hidden">   
+            <br />
+            <div class='loader' style="margin: auto;">
+                <div class='circle1'></div>
+                <div class='circle2'></div>
+                <div class='circle3'></div>
+                <div class='circle4'></div>
+                <div class='circle5'></div>
+                <div class='circle6'></div>
+                <div class='circle7'></div>
+                <div class='circle8'></div>
+             </div>
+            <br />
+           </div>
+        <input onclick="ClickAddEmployeePrealoader()" style="width:280px" type="button" class="btn btn-primary" value="Saves with visual accompaniment"/>
+        <input onclick="ClickAddEmployee()" style="width:280px" type="submit" class="btn btn-primary" value="Save" />
+      <asp:Button ID="ButtonBack" Text="Back" CausesValidation="false" runat="server" CssClass="btn btn-primary" OnClick="ButtonBack_Click"/>
        </div>
+        <input hidden="hidden" id="LblWebApi" value="<%= WebApi %>"/>
     </form>
 
 </body>
 </html>
-<script>
-    $('form').submit(function () {
-        document.location.href = "https://localhost:44346/View/EmployeesApi/ViewEmployees";
-    });
+ 
+ <script>
+     var webApi = document.getElementById('LblWebApi');
+    //$('form').submit(function () {
+    //    document.location.href = "https://localhost:44346/View/EmployeesApi/ViewEmployees";
+    //});
+
+     function CheckValidation() {
+       var divError = document.getElementById('errorSummary');
+       var validationSummary = document.getElementById('validationSum');
+       if (validationSummary.textContent == '\n\n') {
+           divError.hidden = true;
+       }
+       else {
+           divError.hidden = false;
+       }
+    };
+    CheckValidation();
+
     document.getElementById('textSSN').placeholder = '123-45-6789';
     document.getElementById('textPhoneNumber').placeholder = '+375 12 345-67-89';
 
@@ -72,7 +112,7 @@
         array = [];
         await $.ajax({
             headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-            url: 'https://localhost:44375/GetPositions',
+            url: webApi.value +'/GetPositions',
             type: 'GET',
             success: function (data) {
                 array = data;
@@ -85,7 +125,7 @@
         array = [];
         await $.ajax({
             headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-            url: 'https://localhost:44375/GetShops',
+            url: webApi.value +'/GetShops',
             type: 'GET',
             success: function (data) {
                 array = data;
@@ -112,13 +152,13 @@
                 new Option(option)
             )
         );
-    }
+     };
 
     async function AddEmployee(firstName,lastName,middleName,age
         ,info,appointment,phoneNumber,ssn,position,shop) {
         await $.ajax({
             headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-            url: 'https://localhost:44375/AddEmployee/?firstName=' + firstName
+            url: webApi.value +'/AddEmployee/?firstName=' + firstName
                 + '&lastName=' + lastName + '&lastName=' + lastName
                 + '&middleName=' + middleName + '&age=' + age
                 + '&info=' + info + '&appointment=' + appointment
@@ -128,8 +168,51 @@
             success: function (data) {
             }
         });
-    }
-    async function ClickAddEmployee() {
+     };
+
+     async function AddEmployeePrealoader(firstName, lastName, middleName, age
+         , info, appointment, phoneNumber, ssn, position, shop) {
+         await $.ajax({
+             headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
+             url: webApi.value + '/AddEmployee/?firstName=' + firstName
+                 + '&lastName=' + lastName + '&lastName=' + lastName
+                 + '&middleName=' + middleName + '&age=' + age
+                 + '&info=' + info + '&appointment=' + appointment
+                 + '&phoneNumber=' + phoneNumber + '&ssn=' + ssn + '&position=' + position
+                 + '&shop=' + shop,
+             type: 'GET',
+             success: function (data) {
+                 WaitLoad('Successful saving', 'message', 'Preloader');
+             },
+             error: function () {
+                 WaitLoad('An Error occured during implementations save', 'message', 'Preloader');
+             }
+         });
+     };
+
+     async function ClickAddEmployeePrealoader() {
+         $("#controlForms").prop('disabled', true);
+         var div = document.getElementById('Preloader');
+         div.hidden = "";
+         var firstName = document.getElementById('textLastName').value;
+         var lastName = document.getElementById('textFirstName').value;
+         var middleName = document.getElementById('textMiddleName').value;
+         var age = document.getElementById('textAge').value;
+         var info = document.getElementById('textInfo').value;
+         var appointment = document.getElementById('textAppointment').value;
+         var phoneNumber = document.getElementById('textPhoneNumber').value;
+         var ssn = document.getElementById('textSSN').value;
+         var positionSelect = document.getElementById('dropDownPositions');
+         var position = positionSelect.options[positionSelect.selectedIndex].text;
+         var shopSelect = document.getElementById('dropDownShop');
+         var shop = shopSelect.options[shopSelect.selectedIndex].text;
+         await AddEmployeePrealoader(firstName, lastName, middleName, age
+             , info, appointment, phoneNumber, ssn, position, shop);
+     };
+
+     async function ClickAddEmployee() {
+         var div = document.getElementById('errorSummary');
+         div.hidden = false;
         var firstName = document.getElementById('textLastName').value;
         var lastName = document.getElementById('textFirstName').value;
         var middleName = document.getElementById('textMiddleName').value;
@@ -144,6 +227,6 @@
         var shop = shopSelect.options[shopSelect.selectedIndex].text;
         await AddEmployee(firstName, lastName, middleName, age
             , info, appointment, phoneNumber, ssn, position, shop);
-    }
-</script>
+     };
+ </script>
  

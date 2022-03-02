@@ -7,13 +7,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Update employee</title>
      <webopt:bundlereference runat="server" path="~/Content/css" />
-
+     <webopt:BundleReference runat="server" Path="~/Content/PreLoader.css"></webopt:BundleReference>
 </head>
 <body>
     <form id="form1" runat="server">
+               <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference   Path="~/Scripts/ViewScripts/Twister.js" />
+            </Scripts>
+        </asp:ScriptManager>
+
         <div style="width:300px;margin:0 auto;outline: 2px solid #000;padding: 10px;border-radius: 10px;"> 
-            <div style="margin: auto; color: #FF0000; height: 175px; background:#FFC0CB; outline: 2px solid #000;padding: 10px;border-radius: 10px;">
-                <asp:ValidationSummary runat="server" CssClass="error"/>
+            <div id="errorSummary" style="margin: auto; color: #FF0000; background:#FFC0CB; outline: 2px solid #FFC0CB; padding: 10px;border-radius: 10px;">
+                <asp:ValidationSummary ID="validationSum" runat="server" CssClass="error"/>
+            </div>
+
+                   <fieldset id="controlForms"/>  
+                  <div> 
+                      <h3 id="message"></h3>
             </div>
         <label>Last name</label> 
         <asp:RequiredFieldValidator ForeColor="Red" runat="server" ControlToValidate="textLastName"  ErrorMessage="The last name must be specified" CssClass="error" Text="*" />
@@ -32,7 +43,7 @@
         <asp:TextBox ID="textAge" runat="server" TextMode="Number" CssClass="form-control"></asp:TextBox> 
 
         <label>Date of appointment</label>
-        <input id="textAppointment" type="date"/>  
+        <input id="textAppointment" style="width:280px"  type="date"/>  
 
         <label>SSN</label>
          <asp:RegularExpressionValidator  ForeColor="Red" ValidationExpression="[0-9]{3}-[0-9]{2}-[0-9]{4}$" runat="server" ControlToValidate="textSSN"  ErrorMessage="Incorrectly entered ssn number 123-45-6789" CssClass="error" Text="*" />
@@ -48,22 +59,54 @@
         <asp:TextBox ID="textInfo" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox> 
          
         <label>Chose position</label>
-        <asp:DropDownList ID="dropDownPositions" runat="server" ItemType="System.String"  CssClass="btn btn-secondary dropdown-toggle"/> 
+        <asp:DropDownList style="width:280px"  ID="dropDownPositions" runat="server" ItemType="System.String"  CssClass="btn btn-secondary dropdown-toggle"/> 
                
         <label>Chose shop</label>
-        <asp:DropDownList ID="dropDownShop" runat="server" ItemType="System.String"  CssClass="btn btn-secondary dropdown-toggle"/> 
+        <asp:DropDownList style="width:280px"   ID="dropDownShop" runat="server" ItemType="System.String"  CssClass="btn btn-secondary dropdown-toggle"/> 
 
-         <button onclick="ClickUpdateEmployee()" style="width:280px" type="submit" class="btn btn-primary">Save</button>
-         <asp:Button ID="ButtonBack" CausesValidation="false" Text="Back" runat="server" OnClick="ButtonBack_Click" CssClass="btn btn-primary"/>
+
+        <div id="Preloader" hidden="hidden">   
+            <br />
+            <div class='loader' style="margin: auto;">
+                <div class='circle1'></div>
+                <div class='circle2'></div>
+                <div class='circle3'></div>
+                <div class='circle4'></div>
+                <div class='circle5'></div>
+                <div class='circle6'></div>
+                <div class='circle7'></div>
+                <div class='circle8'></div>
+             </div>
+            <br />
+           </div>
+         <input onclick="ClickUpdateEmployeePrealoader()" style="width:280px" type="button" class="btn btn-primary" value="Saves with visual accompaniment"/>
+         <input onclick="ClickUpdateEmployee()" style="width:280px" type="submit" class="btn btn-primary" value="Save" />
+         <asp:Button ID="ButtonBack" CausesValidation="false" style="width:280px" Text="Back" runat="server" OnClick="ButtonBack_Click" CssClass="btn btn-primary"/>
         </div>
     </form>
+      <input hidden="hidden" id="LblWebApi" value="<%= WebApi %>"/>
 </body>
 </html>
+   
+ <script>
+     var webApi = document.getElementById('LblWebApi');
 
-<script>
-    $('form').submit(function () {
-        document.location.href = "https://localhost:44346/View/EmployeesApi/ViewEmployees";
-    });
+    function CheckValidation() {
+        var divError = document.getElementById('errorSummary');
+        var validationSummary = document.getElementById('validationSum');
+        console.log(validationSum);
+        if (validationSummary.textContent == '\n\n') {
+            divError.hidden = true;
+        }
+        else {
+            divError.hidden = false;
+        }
+    };
+    CheckValidation();
+
+   //$('form').submit(function () {
+   //    document.location.href = "https://localhost:44346/View/EmployeesApi/ViewEmployees";
+   //});
 
     document.getElementById('textSSN').placeholder = '123-45-6789';
     document.getElementById('textPhoneNumber').placeholder = '+375 12 345-67-89';
@@ -72,7 +115,7 @@
         array = [];
         await $.ajax({
             headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-            url: 'https://localhost:44375/GetPositionAll',
+            url: webApi.value +'/GetPositionAll',
             type: 'GET',
             success: function (data) {
                 array = data;
@@ -85,7 +128,7 @@
         array = [];
         await $.ajax({
             headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-            url: 'https://localhost:44375/GetShopAll',
+            url: webApi.value +'/GetShopAll',
             type: 'GET',
             success: function (data) {
                 array = data;
@@ -106,7 +149,7 @@
         var employee = {};
         await $.ajax({
             headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-            url: 'https://localhost:44375/Api/Employee/' + Id,
+            url: webApi.value +'/Api/Employee/' + Id,
             type: 'GET',
             success: function (data) {
                 employee = data;
@@ -120,7 +163,7 @@
          position,  shop,  id) {
         await $.ajax({
             headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
-            url: 'https://localhost:44375/UpdateEmployee/?firstName=' + firstName
+            url: webApi.value +'/UpdateEmployee/?firstName=' + firstName
                 + '&lastName=' + lastName + '&middleName=' + middleName
                 + '&age=' + age + '&info=' + info
                 + '&appointment=' + appointment + '&phoneNumber=' + phoneNumber
@@ -130,7 +173,28 @@
             success: function (data) {
             }
         });
-    };
+     };
+
+     async function UpdateEmployeePrealoader (firstName, lastName, middleName, age
+         , info, appointment, phoneNumber, ssn,
+         position, shop, id) {
+         await $.ajax({
+             headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
+             url: webApi.value + '/UpdateEmployee/?firstName=' + firstName
+                 + '&lastName=' + lastName + '&middleName=' + middleName
+                 + '&age=' + age + '&info=' + info
+                 + '&appointment=' + appointment + '&phoneNumber=' + phoneNumber
+                 + '&ssn=' + ssn + '&position=' + position +
+                 '&shop=' + shop + "&id=" + id,
+             type: 'GET',
+             success: function (data) {
+                 WaitLoad('Successful saving', 'message', 'Preloader');
+             },
+             error: function () {
+                 WaitLoad('An Error occured during implementations save', 'message', 'Preloader');
+             }
+         });
+     };
 
     async function OnLoadData() {
         let positionSelect = document.getElementById('dropDownPositions').options;
@@ -177,7 +241,29 @@
             , Info, DateEmployment, PhoneNumber, SSN,
             PositionId, ShopId, Id);
 
-    }
+     }
+
+     async function ClickUpdateEmployeePrealoader() {
+         $("#controlForms").prop('disabled', true);
+         var div = document.getElementById('Preloader');
+         div.hidden = "";
+         var Id = '<%=Request.QueryString["Id"]%>';
+             LastName = document.getElementById('textLastName').value;
+             FirstName = document.getElementById('textFirstName').value;
+             MiddleName = document.getElementById('textMiddleName').value;
+             Age = document.getElementById('textAge').value;
+             Info = document.getElementById('textInfo').value;
+             DateEmployment = document.getElementById('textAppointment').value;
+             PhoneNumber = document.getElementById('textPhoneNumber').value;
+             SSN = document.getElementById('textSSN').value;
+             PositionId = document.getElementById('dropDownPositions').value;
+             ShopId = document.getElementById('dropDownShop').value;
+
+         await UpdateEmployeePrealoader(FirstName, LastName, MiddleName, Age
+                 , Info, DateEmployment, PhoneNumber, SSN,
+                 PositionId, ShopId, Id);
+
+         }
 
     OnLoadData();
-</script>
+ </script>
